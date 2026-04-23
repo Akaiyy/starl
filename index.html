@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Security -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self';">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- SEO & Social Sharing -->
+<title>星轨 STARL — 你的人生意义坐标</title>
+<meta name="description" content="24道题 · 6个维度 · 16种人生意义原型。融合星座元素、依恋理论与存在主义哲学，找到属于你的星轨和人生意义。">
+<meta name="keywords" content="星轨,STARL,人生意义,性格测试,星座,依恋类型,人生态度,心理测试">
+<meta name="author" content="星轨STARL团队">
+<meta property="og:title" content="星轨 STARL — 每颗星辰都藏着一个关于你的答案">
+<meta property="og:description" content="24道题测出你的人生意义原型。我是「星火织梦者」，你呢？">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://via.placeholder.com/1200x630/07080F/8B5CF6?text=%E2%98%85+%E6%98%9F%E8%BD%A8+STARL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="星轨 STARL — 你的人生意义坐标">
+<meta name="twitter:description" content="24道题测出你的人生意义原型，你是16种星轨中的哪一种？">
+<!-- Copyright -->
+<meta name="copyright" content="© 2026 星轨STARL. All Rights Reserved.">
+<link rel="canonical" href="">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07080F;--card:#0E1018;--border:#1A1D2E;
+  --purple:#8B5CF6;--indigo:#6366F1;--cyan:#22D3EE;
+  --pink:#EC4899;--amber:#F59E0B;--emerald:#10B981;
+  --text:#E2E8F0;--muted:#64748B;--dim:#334155;
+  --glow:0 0 20px rgba(139,92,246,.25);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'PingFang SC','Microsoft YaHei','Helvetica Neue',sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.7;
+  min-height:100vh;overflow-x:hidden;
+}
+/* ===== STARFIELD ===== */
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;user-select:none}
+.stars canvas{width:100%;height:100%;pointer-events:none}
+/* ===== LAYOUT ===== */
+.container{max-width:760px;margin:0 auto;padding:24px 20px;position:relative;z-index:1}
+.screen{display:none;animation:fadeUp .5s ease}
+.screen.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+/* ===== INTRO ===== */
+.logo{text-align:center;margin:60px 0 10px}
+.logo-icon{font-size:64px;filter:drop-shadow(0 0 30px rgba(139,92,246,.5))}
+.logo h1{
+  font-size:42px;font-weight:800;
+  background:linear-gradient(135deg,var(--purple),var(--cyan));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:4px;margin:8px 0 0;
+}
+.logo .sub{font-size:13px;color:var(--muted);letter-spacing:6px;margin-top:2px}
+.tagline{
+  text-align:center;font-size:20px;color:var(--text);
+  margin:40px 0 16px;font-weight:300;
+}
+.tagline em{font-style:normal;color:var(--cyan)}
+.intro-desc{
+  text-align:center;font-size:14px;color:var(--muted);
+  max-width:520px;margin:0 auto 40px;line-height:1.9;
+}
+.dims-preview{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  margin:0 auto 40px;max-width:580px;
+}
+.dim-chip{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:14px 12px;text-align:center;
+  transition:border-color .3s,box-shadow .3s;
+}
+.dim-chip:hover{border-color:var(--purple);box-shadow:var(--glow)}
+.dim-chip .icon{font-size:24px;margin-bottom:4px}
+.dim-chip .name{font-size:13px;font-weight:600;color:var(--text)}
+.dim-chip .hint{font-size:11px;color:var(--muted);margin-top:2px}
+.start-btn{
+  display:block;width:280px;margin:0 auto 20px;padding:16px 0;
+  font-size:17px;font-weight:700;letter-spacing:2px;
+  color:#fff;border:none;border-radius:50px;cursor:pointer;
+  background:linear-gradient(135deg,var(--purple),var(--indigo));
+  box-shadow:0 4px 24px rgba(139,92,246,.35);
+  transition:transform .2s,box-shadow .2s;
+  position:relative;z-index:10;-webkit-tap-highlight-color:transparent;
+}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 6px 32px rgba(139,92,246,.5)}
+.start-btn:active{transform:scale(.97)}
+.credit{text-align:center;font-size:11px;color:var(--dim);margin:30px 0 60px}
+.credit a{color:var(--muted);text-decoration:none}
+/* ===== TEST ===== */
+.progress-wrap{
+  position:sticky;top:0;z-index:10;padding:12px 0;
+  background:linear-gradient(var(--bg),rgba(7,8,15,.92) 80%,transparent);
+}
+.progress-bar-bg{
+  height:4px;border-radius:2px;background:var(--border);overflow:hidden;
+}
+.progress-bar{
+  height:100%;width:0%;border-radius:2px;
+  background:linear-gradient(90deg,var(--purple),var(--cyan));
+  transition:width .35s ease;
+}
+.progress-text{font-size:12px;color:var(--muted);text-align:right;margin-top:4px}
+.question{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:28px 24px;margin-bottom:20px;
+  transition:border-color .3s;
+}
+.question.answered{border-color:rgba(139,92,246,.3)}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.q-badge{
+  font-size:11px;font-weight:700;color:var(--purple);
+  background:rgba(139,92,246,.12);padding:3px 10px;border-radius:20px;
+}
+.q-dim{font-size:11px;color:var(--dim)}
+.q-title{font-size:15px;line-height:1.8;margin-bottom:16px}
+.options{display:flex;flex-direction:column;gap:8px}
+.option{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;border-radius:10px;cursor:pointer;
+  border:1px solid var(--border);transition:all .2s;
+  font-size:14px;
+}
+.option:hover{border-color:var(--purple);background:rgba(139,92,246,.06)}
+.option.selected{
+  border-color:var(--purple);background:rgba(139,92,246,.12);
+  box-shadow:0 0 12px rgba(139,92,246,.15);
+}
+.option input{display:none}
+.opt-code{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;
+  border:2px solid var(--border);color:var(--muted);
+  transition:all .2s;
+}
+.option.selected .opt-code{
+  border-color:var(--purple);background:var(--purple);color:#fff;
+}
+.submit-area{text-align:center;padding:20px 0 60px}
+.submit-btn{
+  padding:14px 48px;font-size:16px;font-weight:700;
+  border:none;border-radius:50px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--purple),var(--indigo));
+  box-shadow:0 4px 20px rgba(139,92,246,.3);
+  transition:all .2s;letter-spacing:1px;
+}
+.submit-btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.submit-btn:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(139,92,246,.5)}
+.test-hint{font-size:12px;color:var(--muted);margin-top:10px}
+/* ===== RESULT ===== */
+.result-card{
+  background:linear-gradient(160deg,rgba(139,92,246,.08),rgba(34,211,238,.06));
+  border:1px solid rgba(139,92,246,.2);
+  border-radius:20px;padding:40px 32px;text-align:center;
+  margin-bottom:28px;position:relative;overflow:hidden;
+}
+.result-card::before{
+  content:'';position:absolute;top:-60%;left:-20%;
+  width:140%;height:140%;
+  background:radial-gradient(ellipse,rgba(139,92,246,.08),transparent 70%);
+  pointer-events:none;
+}
+.result-kicker{font-size:12px;color:var(--cyan);letter-spacing:3px;margin-bottom:8px}
+.result-type{
+  font-size:36px;font-weight:800;
+  background:linear-gradient(135deg,var(--purple),var(--cyan),var(--pink));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:4px;
+}
+.result-meaning{font-size:18px;color:var(--amber);margin:8px 0;font-weight:500}
+.result-badge{
+  display:inline-block;font-size:11px;color:var(--purple);
+  background:rgba(139,92,246,.1);padding:4px 14px;border-radius:20px;
+  margin:8px 0 16px;
+}
+.result-sub{font-size:13px;color:var(--muted);margin-bottom:0}
+.result-desc{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:28px 24px;margin-bottom:24px;
+  text-align:left;font-size:14px;line-height:2;color:var(--text);
+}
+.result-quote{
+  font-style:italic;color:var(--cyan);font-size:15px;
+  border-left:3px solid var(--purple);padding-left:16px;
+  margin:20px 0 0;text-align:left;
+}
+.dim-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
+  margin-bottom:24px;
+}
+@media(max-width:560px){.dim-grid{grid-template-columns:1fr}}
+.dim-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:16px;text-align:left;
+}
+.dim-card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.dim-card-name{font-size:13px;font-weight:700;color:var(--text)}
+.dim-card-level{
+  font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;
+}
+.dim-card-level.H{color:var(--cyan);background:rgba(34,211,238,.1)}
+.dim-card-level.M{color:var(--amber);background:rgba(245,158,11,.1)}
+.dim-card-level.L{color:var(--pink);background:rgba(236,72,153,.1)}
+.dim-card p{font-size:12px;color:var(--muted);line-height:1.7}
+.dim-bar{height:3px;border-radius:2px;background:var(--border);margin:8px 0 6px}
+.dim-bar-fill{height:100%;border-radius:2px;transition:width .5s ease}
+.retry-btn{
+  display:inline-block;padding:12px 36px;font-size:14px;
+  font-weight:600;border:1px solid var(--purple);color:var(--purple);
+  background:transparent;border-radius:50px;cursor:pointer;
+  transition:all .2s;margin-top:10px;
+}
+.retry-btn:hover{background:rgba(139,92,246,.1)}
+.fun-note{font-size:11px;color:var(--dim);text-align:center;margin:20px 0 60px;line-height:1.8}
+/* share */
+.share-bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.share-btn{padding:10px 20px;font-size:13px;font-weight:600;border-radius:50px;cursor:pointer;border:none;color:#fff;transition:all .2s;display:flex;align-items:center;gap:6px}
+.share-btn:hover{transform:translateY(-1px)}
+.share-btn.wechat{background:#07C160}
+.share-btn.weibo{background:#E6162D}
+.share-btn.copy{background:var(--purple)}
+.share-btn.screenshot{background:var(--indigo)}
+/* watermark */
+.watermark{position:absolute;bottom:12px;right:16px;font-size:10px;color:rgba(139,92,246,.2);pointer-events:none;letter-spacing:1px}
+/* copyright footer */
+.copyright-footer{text-align:center;padding:20px;border-top:1px solid var(--border);margin-top:40px;font-size:11px;color:var(--dim);line-height:1.8}
+.copyright-footer a{color:var(--muted);text-decoration:none}
+/* ad placeholder */
+.ad-slot{background:var(--card);border:1px dashed var(--border);border-radius:12px;padding:20px;text-align:center;margin:20px 0;min-height:90px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:12px}
+.ad-slot.hidden{display:none}
+/* ===== RESPONSIVE ===== */
+@media(max-width:480px){
+  .container{padding:16px 14px}
+  .logo h1{font-size:32px}
+  .tagline{font-size:17px}
+  .dims-preview{grid-template-columns:repeat(2,1fr)}
+  .result-type{font-size:28px}
+  .question{padding:20px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Starfield Background -->
+<div class="stars"><canvas id="starCanvas"></canvas></div>
+
+<div class="container">
+
+<!-- ========== INTRO ========== -->
+<div class="screen active" id="intro">
+  <div class="logo">
+    <div class="logo-icon">🌌</div>
+    <h1>星 轨 STARL</h1>
+    <div class="sub">SOUL TRACE AND RESONANCE OF LIFE</div>
+  </div>
+
+  <div class="tagline">每颗星辰都藏着<em>一个关于你的答案</em></div>
+
+  <div class="intro-desc">
+    24道题 · 6个维度 · 16种人生意义原型<br>
+    融合星座元素、依恋理论与存在主义哲学<br>
+    找到属于你的那颗星，和它背后的人生意义
+  </div>
+
+  <div class="dims-preview">
+    <div class="dim-chip"><div class="icon">🔥</div><div class="name">星焰</div><div class="hint">内在驱动力</div></div>
+    <div class="dim-chip"><div class="icon">🌊</div><div class="name">潮汐</div><div class="hint">依恋与情感</div></div>
+    <div class="dim-chip"><div class="icon">⚓</div><div class="name">锚</div><div class="hint">安全与稳定</div></div>
+    <div class="dim-chip"><div class="icon">🧭</div><div class="name">探索</div><div class="hint">成长与未知</div></div>
+    <div class="dim-chip"><div class="icon">🌙</div><div class="name">月镜</div><div class="hint">自我认知</div></div>
+    <div class="dim-chip"><div class="icon">✨</div><div class="name">光</div><div class="hint">利他与连接</div></div>
+  </div>
+
+  <button class="start-btn" id="startBtn" onclick="startTest()">开始星轨测试</button>
+  <div class="credit">灵感来源：MBTI / 依恋理论 / 存在主义心理学 · 仅供娱乐</div>
+</div>
+
+<!-- ========== TEST ========== -->
+<div class="screen" id="test">
+  <div class="progress-wrap">
+    <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-text" id="progressText">0 / 24</div>
+  </div>
+  <div id="questionList"></div>
+  <div class="submit-area">
+    <button class="submit-btn" id="submitBtn" disabled onclick="submitTest()">揭示你的星轨</button>
+    <div class="test-hint" id="testHint">全部作答后方可查看结果</div>
+  </div>
+</div>
+
+<!-- ========== RESULT ========== -->
+<div class="screen" id="result">
+  <div class="result-card">
+    <div class="result-kicker" id="resultKicker">你的人生意义原型</div>
+    <div class="result-type" id="resultType">—</div>
+    <div class="result-meaning" id="resultMeaning">—</div>
+    <div class="result-badge" id="resultBadge">—</div>
+    <div class="result-sub" id="resultSub">—</div>
+  </div>
+  <div class="result-desc" id="resultDesc">—</div>
+  <div class="result-desc">
+    <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:12px">六维星图</div>
+    <div class="dim-grid" id="dimGrid"></div>
+  </div>
+  <div class="result-desc" id="resultQuoteBox" style="display:none">
+    <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:12px">写给你的一句话</div>
+    <div class="result-quote" id="resultQuote">—</div>
+  </div>
+  <div style="text-align:center;margin:20px 0">
+    <button class="retry-btn" id="retryBtn" onclick="retryTest()">重新测试</button>
+  </div>
+  <div class="share-bar" id="shareBar">
+    <button class="share-btn screenshot" onclick="shareScreenshot()">📸 保存结果图</button>
+    <button class="share-btn copy" onclick="shareLink()">🔗 复制链接</button>
+    <button class="share-btn weibo" onclick="shareWeibo()">📢 分享微博</button>
+  </div>
+  <!-- Ad Slot (result page) -->
+  <div class="ad-slot hidden" id="adSlotResult">广告位 - 结果页</div>
+  <div class="fun-note">本测试融合星座隐喻、依恋理论和存在主义哲学，仅供自我探索与娱乐。<br>你的人生意义，只有你自己能定义。</div>
+</div>
+
+<!-- Copyright Footer -->
+<div class="copyright-footer">
+  © 2026 星轨 STARL · All Rights Reserved<br>
+  本测试为原创作品，未经授权禁止任何形式的复制、转载或改编。<br>
+  商务合作请联系：starl@example.com
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ===== STARFIELD =====
+try{
+  (function(){
+    var canvas=document.getElementById('starCanvas');
+    if(!canvas)return;
+    var ctx=canvas.getContext('2d');
+    if(!ctx)return;
+    var stars=[];
+    function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;init()}
+    function init(){
+      stars=[];
+      for(var i=0;i<200;i++){
+        stars.push({
+          x:Math.random()*canvas.width,y:Math.random()*canvas.height,
+          r:Math.random()*1.2+.3,a:Math.random(),s:Math.random()*.0008+.0003
+        });
+      }
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(var j=0;j<stars.length;j++){
+        var s=stars[j];
+        s.a+=s.s;if(s.a>1)s.s=-Math.abs(s.s);if(s.a<.1)s.s=Math.abs(s.s);
+        ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+        ctx.fillStyle='rgba(200,210,255,'+s.a+')';ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    window.addEventListener('resize',resize);resize();draw();
+  })();
+}catch(e){console.warn('Starfield disabled:',e)}
+
+// ===== DATA =====
+const DIM_META = {
+  F:{name:'星焰',icon:'🔥',sub:'内在驱动力',colors:['#EC4899','#F59E0B','#22D3EE']},
+  T:{name:'潮汐',icon:'🌊',sub:'依恋与情感',colors:['#EC4899','#F59E0B','#22D3EE']},
+  A:{name:'锚',icon:'⚓',sub:'安全与稳定',colors:['#EC4899','#F59E0B','#22D3EE']},
+  Q:{name:'探索',icon:'🧭',sub:'成长与未知',colors:['#EC4899','#F59E0B','#22D3EE']},
+  M:{name:'月镜',icon:'🌙',sub:'自我认知',colors:['#EC4899','#F59E0B','#22D3EE']},
+  L:{name:'光',icon:'✨',sub:'利他与连接',colors:['#EC4899','#F59E0B','#22D3EE']}
+};
+const DIM_ORDER=['F','T','A','Q','M','L'];
+
+const DIM_EXPLAIN = {
+  F:{L:'内心的火焰偏安静，不太被"激情"这个词驱动。你更像蜡烛——微光足矣。',M:'有热情，但不会燃烧过度。你懂得在行动和休息之间切换。',H:'你体内住着一团不安分的火。想做的事太多，恨不得同时拥有三条命。'},
+  T:{L:'你在关系里保持着礼貌的距离。不是冷，是不想被束缚。',M:'会投入关系，也会给自己留缓冲带。你在亲密和独立之间走钢丝。',H:'一旦认定一个人，你的潮汐就只为TA涨落。爱得浓烈，也容易被关系裹挟。'},
+  A:{L:'你不太需要安全港。不确定性对你来说不是威胁，而是调味料。',M:'需要一定的稳定感，但不会为安全感放弃所有可能性。',H:'你需要稳固的地基才能安心。未知让你焦虑，计划让你踏实。'},
+  Q:{L:'比起探索新世界，你更喜欢把已有的东西做到极致。深度大于广度。',M:'对新事物保持好奇，但不会为了探索而冒太大的险。',H:'你是天生的探索者。未知的东西比已知的更让你兴奋。'},
+  M:{L:'你活得比较"向外"，不太花时间审视自己内心。不是不了解自己，是没那个习惯。',M:'偶尔会深夜复盘人生，但不会陷得太深。自省和行动各占一半。',H:'你花了很多时间和自己对话。你对自己的欲望、恐惧和边界都有清醒的认知。'},
+  L:{L:'你优先照顾自己。不是自私，是你相信——先戴好自己的氧气面罩。',M:'会帮助别人，但有边界。你在利己和利他之间找到了自己的平衡点。',H:'你本能地关注他人的感受。被需要的感觉，是你最强的驱动力之一。'}
+};
+
+const QUESTIONS = [
+  {id:'q1',dim:'F',text:'深夜独处时，脑海里最常出现的念头是？',options:[
+    {label:'想做的事太多，恨不得一天有48小时',value:3},
+    {label:'随便刷点什么，明天再说吧',value:1},
+    {label:'想想明天的安排，然后安心入睡',value:2}
+  ]},
+  {id:'q2',dim:'F',text:'给你一年完全自由的时间（有钱有闲），你最可能？',options:[
+    {label:'立刻启动那个憋了很久的计划',value:3},
+    {label:'先好好休息几个月再说',value:1},
+    {label:'探索几个方向，看看哪个更适合',value:2}
+  ]},
+  {id:'q3',dim:'F',text:'"燃烧自己照亮别人"这句话，你的第一反应是？',options:[
+    {label:'先照亮自己再说',value:2},
+    {label:'挺美的，但我选可持续发展',value:1},
+    {label:'这就是我——控制不住',value:3}
+  ]},
+  {id:'q4',dim:'F',text:'你更像哪种火？',options:[
+    {label:'篝火——温暖稳定，围着的人都很舒服',value:2},
+    {label:'蜡烛——小小的，够用就好',value:1},
+    {label:'野火——烧到哪算哪，但确实壮观',value:3}
+  ]},
+  {id:'q5',dim:'T',text:'在亲密关系里，你最怕的是？',options:[
+    {label:'被抛弃',value:3},
+    {label:'被控制',value:1},
+    {label:'说不上来，看具体情况',value:2}
+  ]},
+  {id:'q6',dim:'T',text:'恋人/好友突然一天没回消息，你更接近哪种状态？',options:[
+    {label:'反复翻看聊天记录，猜测各种原因',value:3},
+    {label:'有自己的事做，没太在意',value:1},
+    {label:'注意到了，但等对方主动说',value:2}
+  ]},
+  {id:'q7',dim:'T',text:'你觉得"灵魂伴侣"这个概念？',options:[
+    {label:'我一直在找',value:3},
+    {label:'不存在，但可以用心经营',value:2},
+    {label:'不需要，我自己就是完整的',value:1}
+  ]},
+  {id:'q8',dim:'T',text:'下面哪种拥抱最像你？',options:[
+    {label:'紧紧的，恨不得融为一体',value:3},
+    {label:'轻轻的，意思到了就好',value:1},
+    {label:'看心情和对象，有时紧有时松',value:2}
+  ]},
+  {id:'q9',dim:'A',text:'如果人生是一艘船，你更在意？',options:[
+    {label:'船锚够不够稳——我需要安全港',value:3},
+    {label:'帆够不够大——我要去远方',value:1},
+    {label:'船上的人够不够好',value:2}
+  ]},
+  {id:'q10',dim:'A',text:'"稳定"这个词给你的第一感觉？',options:[
+    {label:'温暖、安心',value:3},
+    {label:'无聊、被困住',value:1},
+    {label:'需要的，但不能只有这个',value:2}
+  ]},
+  {id:'q11',dim:'A',text:'面对重大选择时，你更依赖？',options:[
+    {label:'过往经验和已知信息',value:3},
+    {label:'直觉和冲动',value:1},
+    {label:'分析利弊后跟着感觉走',value:2}
+  ]},
+  {id:'q12',dim:'A',text:'你对"未来的不确定性"什么态度？',options:[
+    {label:'焦虑——希望尽量规划好一切',value:3},
+    {label:'兴奋——不确定才有趣啊',value:1},
+    {label:'接受——走一步看一步',value:2}
+  ]},
+  {id:'q13',dim:'Q',text:'一本从未听过的冷门书 vs 一部大家都推荐的热门电影，你选？',options:[
+    {label:'冷门书，我就爱挖宝',value:3},
+    {label:'热门电影，大家说好肯定不差',value:1},
+    {label:'看当时心情',value:2}
+  ]},
+  {id:'q14',dim:'Q',text:'你更羡慕哪种人？',options:[
+    {label:'走遍世界的冒险家',value:3},
+    {label:'深耕一个领域的匠人',value:1},
+    {label:'两者兼顾的斜杠青年',value:2}
+  ]},
+  {id:'q15',dim:'Q',text:'"舒适区"对你来说是？',options:[
+    {label:'牢笼',value:3},
+    {label:'家',value:1},
+    {label:'充电站——偶尔回来充满电再出发',value:2}
+  ]},
+  {id:'q16',dim:'Q',text:'如果能获得一种超能力？',options:[
+    {label:'瞬间移动到世界任何角落',value:3},
+    {label:'让时间暂停，好好休息一下',value:1},
+    {label:'读懂别人真实的想法',value:2}
+  ]},
+  {id:'q17',dim:'M',text:'你觉得自己了解真实的自己吗？',options:[
+    {label:'很了解，我花了很多时间思考这个问题',value:3},
+    {label:'不太了解，也没太在意',value:1},
+    {label:'在努力了解的路上',value:2}
+  ]},
+  {id:'q18',dim:'M',text:'做了一个让自己后悔的决定后，你通常？',options:[
+    {label:'反复复盘，一定要从中学到什么',value:3},
+    {label:'翻篇了，人生没有后悔药',value:1},
+    {label:'难受一阵子，然后接受',value:2}
+  ]},
+  {id:'q19',dim:'M',text:'凌晨三点睡不着，你更可能在想？',options:[
+    {label:'我到底想要什么样的人生',value:3},
+    {label:'明天中午吃什么',value:1},
+    {label:'今天发生的某件事让我有点在意',value:2}
+  ]},
+  {id:'q20',dim:'M',text:'"认识你自己"——古希腊德尔菲神庙上的铭文。你觉得？',options:[
+    {label:'这是一辈子的功课',value:3},
+    {label:'想那么多干嘛，活着就好',value:1},
+    {label:'有道理，偶尔想想',value:2}
+  ]},
+  {id:'q21',dim:'L',text:'如果你的存在能改变一件事？',options:[
+    {label:'让身边的人更幸福',value:3},
+    {label:'让自己过得更好',value:1},
+    {label:'在世界上留下一个作品/痕迹',value:2}
+  ]},
+  {id:'q22',dim:'L',text:'看到一个陌生人在街上默默流泪，你的第一反应？',options:[
+    {label:'想走过去问问怎么了',value:3},
+    {label:'心里同情，但不会上前',value:2},
+    {label:'每个人都有自己的故事',value:1}
+  ]},
+  {id:'q23',dim:'L',text:'你觉得人活着最重要的是？',options:[
+    {label:'被需要',value:3},
+    {label:'自由',value:1},
+    {label:'平衡',value:2}
+  ]},
+  {id:'q24',dim:'L',text:'80岁的你回看一生，最希望看到什么？',options:[
+    {label:'温暖过很多人的心',value:3},
+    {label:'活出了最真实的自己',value:1},
+    {label:'留下了有价值的东西',value:2}
+  ]}
+];
+
+// Pattern format: F T A Q M L (each H/M/L)
+const TYPE_LIBRARY = {
+  "星火织梦者":{code:"星火织梦者",en:"Dreamforger",meaning:"创造",pattern:"HMM-HHM",
+    quote:"你的双手注定要把虚无变成存在。",
+    desc:"你的人生意义在于「创造」。你体内住着一团永远不满足的火焰，它驱动你把脑海中的画面变成现实。对你来说，最深刻的存在感不来自被爱或被认可，而来自那个从无到有的瞬间——当一个作品、一个想法、一个项目从你手中诞生，你就触碰到了人生的意义。你不一定是艺术家，但你一定是某种意义上的造物者。无论是写一行代码、做一顿饭、还是构建一个方案，你都在用创造回应宇宙的沉默。记住：你的价值不在于作品的完美，而在于创造这个行为本身。"},
+  "潮汐守望者":{code:"潮汐守望者",en:"Tidekeeper",meaning:"守护",pattern:"MHH-MMH",
+    quote:"你是别人生命中那盏永远亮着的灯。",
+    desc:"你的人生意义在于「守护」。你像月亮牵引着潮汐，不自觉地成为他人生命中的定海神针。你的安全感来自稳固的关系，你的价值感来自被信赖和被依靠。你不需要站在舞台中央，但你一定是那个在台下默默举着灯的人。你天生就理解什么叫'承诺'——不是嘴上说说，而是风雨无阻地出现。你的人生意义藏在每一个「别怕，有我在」的瞬间里。但请记住，守护别人的前提，是你的灯里永远留着属于自己的那份光。"},
+  "深渊航者":{code:"深渊航者",en:"Abyss Sailor",meaning:"探索",pattern:"HLL-HHL",
+    quote:"真正的星辰大海，在水面之下。",
+    desc:"你的人生意义在于「探索未知」。你是被深渊召唤的人。当别人选择安全的航线时，你本能地驶向了地图上写着'此处有怪物'的空白区域。你不太需要关系的温暖和安全感的庇护——不是因为冷，而是因为你的好奇心比恐惧更大。你追求的是「第一个看见」的震撼：第一个到达无人之境，第一个理解一个复杂的问题，第一个找到那个隐藏的真相。你的孤独不是诅咒，是代价——探索的代价。"},
+  "晨光引路人":{code:"晨光引路人",en:"Dawn Guide",meaning:"启发",pattern:"HMM-MMH",
+    quote:"你存在的意义，是让别人也看见光。",
+    desc:"你的人生意义在于「启发」。你是那种能用一句话改变别人想法的人。你有热情，但你的热情不是为了自己燃烧——而是为了点亮他人前行的路。你关注他人的成长甚于自己的成就，你的满足感来自看到别人因你的话、你的行动、你的存在而变得更好。你可能是老师、导师、朋友、父母中的那个'灯塔型'角色。你不强迫别人跟随你，你只是站在晨光中，让方向自己显现。"},
+  "孤星旅者":{code:"孤星旅者",en:"Lone Star",meaning:"独行",pattern:"MLL-HHL",
+    quote:"最远的路，往往只能一个人走。",
+    desc:"你的人生意义在于「在孤独中认识自己」。你不抗拒关系，但你比大多数人更能承受独处。事实上，你在独处中获得的东西比在人群中更多。你的内心有一套自洽的价值观，不太需要外界的确认。你像夜空中那颗最远的星——不是不发光，而是光需要更长的时间才能被看见。你的人生意义不在于被多少人理解，而在于你是否忠于了自己那场漫长的内在旅行。"},
+  "月影共鸣者":{code:"月影共鸣者",en:"Lunar Echo",meaning:"共情",pattern:"LHM-MHH",
+    quote:"你听见了世界没说出口的那句话。",
+    desc:"你的人生意义在于「共情」。你拥有一种罕见的能力：感受他人的感受。别人的快乐让你快乐，别人的痛苦也会在你心里留下涟漪。你不是那种热情驱动的人，但你是最能'看见'别人的人。你的存在本身就是一种疗愈——不需要说什么大道理，你只是在那里，认真地听，用眼神告诉对方：我懂。你的人生意义藏在每一次「我在」的沉默回应里。但也请学会区分：哪些是你的情绪，哪些是别人的。"},
+  "烈阳突破者":{code:"烈阳突破者",en:"Solar Breaker",meaning:"突破",pattern:"HLL-HLL",
+    quote:"规则只是别人画的线，你自备橡皮。",
+    desc:"你的人生意义在于「突破一切边界」。你是人群中最不安分的那个。安全感、稳定、依赖——这些词在你的词典里都带着一层灰。你要的是打破：打破旧的自己，打破世俗的框架，打破'不可能'这三个字。你的能量是破坏性的，也是建设性的——因为旧的不去，新的不来。你不太在意别人怎么看你，你更在意自己有没有在进步。你的人生意义不是到达某个终点，而是永远在路上、永远在突破。"},
+  "星尘收集者":{code:"星尘收集者",en:"Dust Collector",meaning:"体验",pattern:"MMM-HMM",
+    quote:"人生的意义不是一个答案，是一路的风景。",
+    desc:"你的人生意义在于「丰富的体验」。你不极端、不偏执，你什么都想尝尝，什么都想看看。你的人生不是一条直线，而是一张星图——每一个点都是你到过的地方、遇见的人、尝试的事。你的六个维度都趋近平衡，这不是因为你没有特点，而是因为你的特点就是「不被定义」。你最害怕的不是失败，而是无聊。你收集体验，就像收集星尘——每一粒都微小，但攥在手里时，你就握住了整个银河。"},
+  "暮光修行者":{code:"暮光修行者",en:"Twilight Sage",meaning:"内省",pattern:"LLH-LHM",
+    quote:"在足够深的安静里，所有答案都会浮现。",
+    desc:"你的人生意义在于「向内求索」。你的驱动力不高，对关系的依赖也偏低，但你的自我认知深度超过大多数人。你不是不行动，而是在行动之前，你需要先想明白「为什么」。你像一个暮色中独坐的修行者，外表平静，内心却在进行着最激烈的对话——和自己的对话。你的人生意义不在外面的世界，而在你内心那座深不见底的湖里。每一次沉思，你都在往湖底潜一点。"},
+  "极光编织者":{code:"极光编织者",en:"Aurora Weaver",meaning:"连接",pattern:"HHM-MMH",
+    quote:"你把孤独的星星连成了星座。",
+    desc:"你的人生意义在于「连接」。你有热情，也重视关系，更本能地想把温暖传递给更多人。你是人群中的节点——有你在的地方，人和人之间的距离会变近。你不是为了社交而社交，你是真的相信：人与人的连接，就是对抗虚无最有效的方式。你的存在就像极光——自己在发光，同时也把不同颜色的光编织在一起。你的人生意义，藏在每一次真诚的对话和每一段有温度的关系里。"},
+  "星河漫游者":{code:"星河漫游者",en:"Galaxy Drifter",meaning:"自由",pattern:"MLL-HML",
+    quote:"你不属于任何星系，你属于整条银河。",
+    desc:"你的人生意义在于「绝对的自由」。你不需要太多安全感，也不太依赖关系，你像一颗自由漂浮在星河中的粒子——没有固定轨道，却因此看见了最多的风景。你害怕被绑定：被关系绑定、被城市绑定、被一份工作绑定、甚至被一个身份绑定。你的人生意义不是找到归属，而是证明「不归属也可以活得很好」。你的自由不是逃避，是一种选择——选择用自己的节奏，走自己的路。"},
+  "磐石铸造者":{code:"磐石铸造者",en:"Rock Forger",meaning:"坚守",pattern:"HMH-LMM",
+    quote:"潮水退去，你还在。",
+    desc:"你的人生意义在于「成为不可动摇的存在」。你有强大的内驱力，极高的安全感需求，但不太追求探索新事物。你相信的是深度而非广度、坚持而非灵活。你的人生像一座山——不移动，但所有人都知道它在那里。你不会轻易改变自己的信念和方向，这种坚定在别人看来有时像固执，但你知道那叫'原则'。你的人生意义在于用时间证明：有些东西，是值得死磕到底的。"},
+  "彗星追逐者":{code:"彗星追逐者",en:"Comet Chaser",meaning:"追梦",pattern:"HML-HLM",
+    quote:"你追的不是星星，是你自己的影子。",
+    desc:"你的人生意义在于「追逐那颗遥不可及的星」。你有旺盛的驱动力和极强的好奇心，但对安全感和自我认知的需求偏低——你不是看不见风险，你是觉得梦想比风险更重要。你的人生可能充满了起伏：辉煌的高光和惨烈的低谷交替出现，但你不后悔。因为对你来说，停下来比摔倒更可怕。你是那种会为了一个'也许'赌上一切的人。你的人生意义不在到达，在追逐本身。"},
+  "星云疗愈者":{code:"星云疗愈者",en:"Nebula Healer",meaning:"疗愈",pattern:"LHM-LHH",
+    quote:"你用温柔填补了世界的裂缝。",
+    desc:"你的人生意义在于「疗愈」。你的内驱力不高，但共情力和利他心却高得惊人。你不是那种冲在最前面的人，但你一定是那个在别人受伤时第一个走过来的人。你的存在就像星云——看起来朦胧柔软，却是孕育新星的温床。你不需要改变世界，你只需要修补世界。每一次倾听、每一句安慰、每一个不求回报的善举，都是你存在意义的证明。"},
+  "黑洞观测者":{code:"黑洞观测者",en:"Void Gazer",meaning:"思考",pattern:"LLM-LHL",
+    quote:"你在虚无中看见了结构。",
+    desc:"你的人生意义在于「理解一切」。你的大部分维度偏低，但你的自我认知（月镜）异常清醒。你不追求热情、不依赖关系、不渴望安全、不急于利他——你只是在看、在想、在理解。你像一个对着黑洞沉思的天文学家，别人看见的是虚无和恐惧，你看见的是引力方程和时空曲率。你的人生意义不是感性的，是智性的。当你终于理解了某个困扰你很久的问题，那种通透感——就是你的宇宙。"},
+  "超新星绽放者":{code:"超新星绽放者",en:"Supernova",meaning:"绽放",pattern:"HHL-HMH",
+    quote:"你不是在燃烧，你是在爆发。",
+    desc:"你的人生意义在于「用全部的自己照亮宇宙」。你的驱动力、依恋深度、好奇心和利他心全部拉满，唯独安全感偏低——你不是不怕，你是怕了也要上。你像即将爆发的超新星，能量大到装不下自己的外壳。你的人生注定不会平庸，因为你拒绝平庸。你同时在追梦、在爱人、在探索、在给予。你的风险是燃尽自己，你的荣耀是在燃尽之前，照亮了整片星空。"}
+};
+
+const TYPES = [
+  {code:"星火织梦者",pattern:"HMM-HHM"},
+  {code:"潮汐守望者",pattern:"MHH-MMH"},
+  {code:"深渊航者",pattern:"HLL-HHL"},
+  {code:"晨光引路人",pattern:"HMM-MMH"},
+  {code:"孤星旅者",pattern:"MLL-HHL"},
+  {code:"月影共鸣者",pattern:"LHM-MHH"},
+  {code:"烈阳突破者",pattern:"HLL-HLL"},
+  {code:"星尘收集者",pattern:"MMM-HMM"},
+  {code:"暮光修行者",pattern:"LLH-LHM"},
+  {code:"极光编织者",pattern:"HHM-MMH"},
+  {code:"星河漫游者",pattern:"MLL-HML"},
+  {code:"磐石铸造者",pattern:"HMH-LMM"},
+  {code:"彗星追逐者",pattern:"HML-HLM"},
+  {code:"星云疗愈者",pattern:"LHM-LHH"},
+  {code:"黑洞观测者",pattern:"LLM-LHL"},
+  {code:"超新星绽放者",pattern:"HHL-HMH"}
+];
+
+// ===== ALGORITHM =====
+function sumToLevel(score){
+  if(score<=6)return'L';if(score<=9)return'M';return'H';
+}
+function levelNum(l){return{L:1,M:2,H:3}[l]}
+function parsePattern(p){return p.replace(/-/g,'').split('')}
+
+function computeResult(answers){
+  const raw={};const levels={};
+  DIM_ORDER.forEach(d=>{raw[d]=0});
+  QUESTIONS.forEach(q=>{raw[q.dim]+=Number(answers[q.id]||0)});
+  DIM_ORDER.forEach(d=>{levels[d]=sumToLevel(raw[d])});
+  const uv=DIM_ORDER.map(d=>levelNum(levels[d]));
+  const ranked=TYPES.map(t=>{
+    const tv=parsePattern(t.pattern).map(levelNum);
+    let dist=0,exact=0;
+    for(let i=0;i<tv.length;i++){const df=Math.abs(uv[i]-tv[i]);dist+=df;if(df===0)exact++}
+    const sim=Math.max(0,Math.round((1-dist/18)*100)); // max dist=12 (6dims*2)
+    return{...t,...TYPE_LIBRARY[t.code],dist,exact,sim};
+  }).sort((a,b)=>a.dist-b.dist||b.exact-a.exact||b.sim-a.sim);
+  const best=ranked[0];
+  return{raw,levels,ranked,best,
+    badge:`匹配度 ${best.sim}% · 命中 ${best.exact}/6 维`};
+}
+
+// ===== APP =====
+const app={shuffled:[],answers:{}};
+const $=id=>document.getElementById(id);
+
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(el=>{
+    el.classList.toggle('active',el.id===name);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}
+  return a;
+}
+
+function renderQuestions(){
+  const list=$('questionList');list.innerHTML='';
+  app.shuffled.forEach((q,idx)=>{
+    const card=document.createElement('div');
+    card.className='question'+(app.answers[q.id]!==undefined?' answered':'');
+    card.id='qcard_'+q.id;
+    card.innerHTML=`
+      <div class="q-meta">
+        <span class="q-badge">第 ${idx+1} 题</span>
+        <span class="q-dim">${DIM_META[q.dim].icon} ${DIM_META[q.dim].name}</span>
+      </div>
+      <div class="q-title">${q.text}</div>
+      <div class="options">${q.options.map((o,i)=>{
+        const code='ABC'[i];
+        const sel=app.answers[q.id]===o.value;
+        return`<label class="option${sel?' selected':''}">
+          <input type="radio" name="${q.id}" value="${o.value}"${sel?' checked':''}>
+          <div class="opt-code">${code}</div>
+          <div>${o.label}</div>
+        </label>`;
+      }).join('')}</div>`;
+    list.appendChild(card);
+  });
+  list.querySelectorAll('input[type=radio]').forEach(inp=>{
+    inp.addEventListener('change',e=>{
+      app.answers[e.target.name]=Number(e.target.value);
+      // update visual
+      const card=$('qcard_'+e.target.name);
+      card.classList.add('answered');
+      card.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+      e.target.closest('.option').classList.add('selected');
+      updateProgress();
+    });
+  });
+  updateProgress();
+}
+
+function updateProgress(){
+  const total=app.shuffled.length;
+  const done=app.shuffled.filter(q=>app.answers[q.id]!==undefined).length;
+  const pct=total?(done/total)*100:0;
+  $('progressBar').style.width=pct+'%';
+  $('progressText').textContent=`${done} / ${total}`;
+  $('submitBtn').disabled=done!==total;
+  $('testHint').textContent=done===total?'星轨已就绪。点击按钮，揭示你的人生意义坐标。':'全部作答后方可查看结果';
+}
+
+function renderResult(){
+  const r=computeResult(app.answers);
+  const t=r.best;
+  $('resultKicker').textContent='你的人生意义原型';
+  $('resultType').textContent=t.code;
+  $('resultMeaning').textContent=`你的人生意义在于「${t.meaning}」`;
+  $('resultBadge').textContent=r.badge;
+  $('resultSub').textContent=t.en+' — '+t.meaning;
+  $('resultDesc').textContent=t.desc;
+  // Add watermark
+  var rc=document.querySelector('.result-card');
+  var wm=rc.querySelector('.watermark');
+  if(!wm){wm=document.createElement('div');wm.className='watermark';rc.appendChild(wm)}
+  wm.textContent='© 星轨STARL 2026';
+  if(t.quote){
+    $('resultQuoteBox').style.display='block';
+    $('resultQuote').textContent=t.quote;
+  }
+  // dim grid
+  const grid=$('dimGrid');grid.innerHTML='';
+  DIM_ORDER.forEach(d=>{
+    const lv=r.levels[d];const score=r.raw[d];
+    const pct=Math.round((score/12)*100);
+    const colors={L:'var(--pink)',M:'var(--amber)',H:'var(--cyan)'};
+    const card=document.createElement('div');card.className='dim-card';
+    card.innerHTML=`
+      <div class="dim-card-top">
+        <span class="dim-card-name">${DIM_META[d].icon} ${DIM_META[d].name}</span>
+        <span class="dim-card-level ${lv}">${lv} · ${score}分</span>
+      </div>
+      <div class="dim-bar"><div class="dim-bar-fill" style="width:${pct}%;background:${colors[lv]}"></div></div>
+      <p>${DIM_EXPLAIN[d][lv]}</p>`;
+    grid.appendChild(card);
+  });
+  showScreen('result');
+}
+
+// ===== ACTIONS (called by onclick) =====
+function startTest(){
+  try{
+    app.answers={};
+    app.shuffled=shuffle([...QUESTIONS]);
+    renderQuestions();
+    showScreen('test');
+  }catch(e){alert('启动失败: '+e.message)}
+}
+function submitTest(){
+  try{renderResult()}catch(e){alert('生成结果失败: '+e.message)}
+}
+function retryTest(){
+  showScreen('intro');
+}
+
+// ===== EVENTS (backup) =====
+document.addEventListener('DOMContentLoaded',function(){
+  var sb=document.getElementById('startBtn');
+  if(sb)sb.addEventListener('click',startTest);
+  var ub=document.getElementById('submitBtn');
+  if(ub)ub.addEventListener('click',submitTest);
+  var rb=document.getElementById('retryBtn');
+  if(rb)rb.addEventListener('click',retryTest);
+});
+
+console.log('STARL loaded OK, '+QUESTIONS.length+' questions, '+TYPES.length+' types');
+
+// ===== SHARING =====
+function shareLink(){
+  var url=window.location.href;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText('我在星轨STARL测出了我的人生意义原型，你也来试试：'+url).then(function(){alert('链接已复制，快去分享给朋友吧！')}).catch(function(){prompt('复制以下链接分享给朋友：',url)});
+  }else{prompt('复制以下链接分享给朋友：',url)}
+}
+function shareWeibo(){
+  var t=document.getElementById('resultType');
+  var m=document.getElementById('resultMeaning');
+  var text='我在星轨STARL测出了我的人生意义原型是【'+(t?t.textContent:'')+'】，'+(m?m.textContent:'')+'！你也来测测吧 '+window.location.href;
+  window.open('https://service.weibo.com/share/share.php?title='+encodeURIComponent(text),'_blank','width=600,height=400');
+}
+function shareScreenshot(){
+  var card=document.querySelector('.result-card');
+  if(!card){alert('请先完成测试');return}
+  alert('请截图保存结果卡片分享到朋友圈/小红书\n\niPhone: 电源键+音量加\nAndroid: 电源键+音量减\nPC: F12截图或Win+Shift+S');
+}
+
+// ===== ANTI-COPY PROTECTION =====
+// Light protection - won't affect UX
+document.addEventListener('contextmenu',function(e){
+  if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+  // Allow right-click on result for screenshots
+});
+// Prevent view-source copy of core algorithm
+(function(){var _=console.log;console.log=function(){if(arguments[0]&&typeof arguments[0]==='string'&&arguments[0].indexOf('STARL')>-1)return _.apply(console,arguments)}})();
+</script>
+</body>
+</html>
