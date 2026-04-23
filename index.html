@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- Security -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://adservice.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://pagead2.googlesyndication.com; connect-src 'self' https://pagead2.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com;">
+<!-- Google AdSense — 验证代码 -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6302338565425348" crossorigin="anonymous"></script>
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- SEO & Social Sharing -->
 <title>星轨 STARL — 你的人生意义坐标</title>
@@ -247,6 +249,8 @@ body{
 /* ad placeholder */
 .ad-slot{background:var(--card);border:1px dashed var(--border);border-radius:12px;padding:20px;text-align:center;margin:20px 0;min-height:90px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:12px}
 .ad-slot.hidden{display:none}
+.ad-slot.ad-live{border:none;padding:0;background:transparent}
+.ad-slot.ad-live ins{display:block;width:100%}
 /* ===== RESPONSIVE ===== */
 @media(max-width:480px){
   .container{padding:16px 14px}
@@ -296,6 +300,12 @@ body{
 
   <button class="start-btn" id="startBtn" onclick="startTest()">来，测一下 →</button>
   <div class="credit">基于依恋理论 / 存在主义心理学 / 玄学 · 准到你害怕（仅供娱乐）</div>
+
+  <!-- 广告位A：首页底部 -->
+  <div class="ad-slot hidden" id="adSlotIntro">
+    <!-- AdSense 上线后取消hidden并填入ins代码 -->
+    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
+  </div>
 </div>
 
 <!-- ========== TEST ========== -->
@@ -338,7 +348,14 @@ body{
     <button class="share-btn weibo" onclick="shareWeibo()">📢 分享微博</button>
   </div>
   <!-- Ad Slot (result page) -->
-  <div class="ad-slot hidden" id="adSlotResult">广告位 - 结果页</div>
+  <!-- 广告位B：结果页中部（分享栏下方） -->
+  <div class="ad-slot hidden" id="adSlotResult">
+    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="2222222222" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
+  </div>
+  <!-- 广告位C：结果页底部 -->
+  <div class="ad-slot hidden" id="adSlotBottom">
+    <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="3333333333" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
+  </div>
   <div class="fun-note">本测试融合星座隐喻、依恋理论和存在主义哲学，仅供自我探索与娱乐。<br>你的人生意义，只有你自己能定义。</div>
 </div>
 
