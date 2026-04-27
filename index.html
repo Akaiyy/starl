@@ -11,16 +11,16 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- SEO & Social Sharing -->
 <title>星轨 STARL — 你的人生意义坐标</title>
-<meta name="description" content="24道题 · 6个维度 · 16种人生意义原型。融合星座元素、依恋理论与存在主义哲学，找到属于你的星轨和人生意义。">
+<meta name="description" content="30道灵魂拷问 · 6个维度 · 16种人生意义原型。深度分析你活着的意义，找到属于你的星轨。">
 <meta name="keywords" content="星轨,STARL,人生意义,性格测试,星座,依恋类型,人生态度,心理测试">
 <meta name="author" content="星轨STARL团队">
 <meta property="og:title" content="星轨 STARL — 每颗星辰都藏着一个关于你的答案">
-<meta property="og:description" content="24道题测出你的人生意义原型。我是「脑洞永动机」，你呢？">
+<meta property="og:description" content="30道题测出你的人生意义原型。我是「脑洞永动机」，你呢？">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://via.placeholder.com/1200x630/07080F/8B5CF6?text=%E2%98%85+%E6%98%9F%E8%BD%A8+STARL">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="星轨 STARL — 你的人生意义坐标">
-<meta name="twitter:description" content="24道题测出你的人生意义原型，你是16种星轨中的哪一种？">
+<meta name="twitter:description" content="30道题测出你的人生意义原型，你是16种星轨中的哪一种？">
 <!-- Copyright -->
 <meta name="copyright" content="© 2026 星轨STARL. All Rights Reserved.">
 <link rel="canonical" href="https://akaiyy.github.io/starl/">
@@ -280,10 +280,10 @@ body{
     <div class="sub">SOUL TRACE AND RESONANCE OF LIFE</div>
   </div>
 
-  <div class="tagline">你这辈子活着到底图个啥？<em>24道题告诉你</em></div>
+  <div class="tagline">你这辈子活着到底图个啥？<em>30道题告诉你</em></div>
 
   <div class="intro-desc">
-    6个灵魂维度 × 16种抽象原型<br>
+    30道灵魂拷问 × 6个维度 × 16种人生原型<br>
     你是「脑洞永动机」还是「社交绝缘体」？<br>
     是「CPU满载中」还是「人间创可贴」？<br>
     测完你就知道了。不测你永远不知道。
@@ -589,125 +589,161 @@ const DIM_EXPLAIN = {
 };
 
 const QUESTIONS = [
-  {id:'q1',dim:'F',text:'深夜独处时，脑海里最常出现的念头是？',options:[
-    {label:'想做的事太多，恨不得一天有48小时',value:3},
-    {label:'随便刷点什么，明天再说吧',value:1},
-    {label:'想想明天的安排，然后安心入睡',value:2}
+  // ===== F 星焰（内在驱动力）=====
+  {id:'q1',dim:'F',text:'如果明天不用工作/上学，你最可能做什么？',options:[
+    {label:'终于可以全力推进一直想做的事',value:3},
+    {label:'没想好，先睡到自然醒再说',value:2},
+    {label:'什么都不做，享受完全放空的一天',value:1}
   ]},
-  {id:'q2',dim:'F',text:'给你一年完全自由的时间（有钱有闲），你最可能？',options:[
-    {label:'立刻启动那个憋了很久的计划',value:3},
-    {label:'先好好休息几个月再说',value:1},
-    {label:'探索几个方向，看看哪个更适合',value:2}
+  {id:'q2',dim:'F',text:'回头看这一年，哪种感觉最让你不安？',options:[
+    {label:'感觉自己什么都没做成',value:3},
+    {label:'感觉时间都花在了不重要的事上',value:2},
+    {label:'没什么特别不安的',value:1}
   ]},
-  {id:'q3',dim:'F',text:'"燃烧自己照亮别人"这句话，你的第一反应是？',options:[
-    {label:'先照亮自己再说',value:2},
-    {label:'挺美的，但我选可持续发展',value:1},
-    {label:'这就是我——控制不住',value:3}
+  {id:'q3',dim:'F',text:'有人说"人活着就要折腾"，你觉得？',options:[
+    {label:'完全同意，不折腾等于白活',value:3},
+    {label:'有道理，但也需要平衡',value:2},
+    {label:'不同意，安安稳稳也是好生活',value:1}
   ]},
-  {id:'q4',dim:'F',text:'你更像哪种火？',options:[
-    {label:'篝火——温暖稳定，围着的人都很舒服',value:2},
-    {label:'蜡烛——小小的，够用就好',value:1},
-    {label:'野火——烧到哪算哪，但确实壮观',value:3}
+  {id:'q4',dim:'F',text:'连续休息了一整周后，你的状态？',options:[
+    {label:'已经焦虑了，必须做点什么',value:3},
+    {label:'差不多该动动了',value:2},
+    {label:'还能继续，完全没问题',value:1}
   ]},
-  {id:'q5',dim:'T',text:'在亲密关系里，你最怕的是？',options:[
-    {label:'被抛弃',value:3},
-    {label:'被控制',value:1},
-    {label:'说不上来，看具体情况',value:2}
+  {id:'q5',dim:'F',text:'你做事最主要的动力来源是？',options:[
+    {label:'想做出一些有价值的成果',value:3},
+    {label:'需要维持生活和完成任务',value:2},
+    {label:'说实话没太大动力，够用就好',value:1}
   ]},
-  {id:'q6',dim:'T',text:'恋人/好友突然一天没回消息，你更接近哪种状态？',options:[
-    {label:'反复翻看聊天记录，猜测各种原因',value:3},
-    {label:'有自己的事做，没太在意',value:1},
-    {label:'注意到了，但等对方主动说',value:2}
+  // ===== T 潮汐（关系联结）=====
+  {id:'q6',dim:'T',text:'你觉得人生中最不可替代的是？',options:[
+    {label:'真正懂我的人',value:3},
+    {label:'做自己喜欢的事的自由',value:1},
+    {label:'两者缺一不可',value:2}
   ]},
-  {id:'q7',dim:'T',text:'你觉得"灵魂伴侣"这个概念？',options:[
-    {label:'我一直在找',value:3},
-    {label:'不存在，但可以用心经营',value:2},
-    {label:'不需要，我自己就是完整的',value:1}
+  {id:'q7',dim:'T',text:'独自旅行一周 vs 和好朋友窝在家一周，你选？',options:[
+    {label:'和朋友在一起，不用想',value:3},
+    {label:'都可以，看当时心情',value:2},
+    {label:'独自旅行，毫不犹豫',value:1}
   ]},
-  {id:'q8',dim:'T',text:'下面哪种拥抱最像你？',options:[
-    {label:'紧紧的，恨不得融为一体',value:3},
-    {label:'轻轻的，意思到了就好',value:1},
-    {label:'看心情和对象，有时紧有时松',value:2}
+  {id:'q8',dim:'T',text:'最让你有幸福感的瞬间是？',options:[
+    {label:'和在乎的人待在一起的平凡时刻',value:3},
+    {label:'完成一件自己很满意的事',value:1},
+    {label:'两种都有，很难说哪个更多',value:2}
   ]},
-  {id:'q9',dim:'A',text:'如果人生是一艘船，你更在意？',options:[
-    {label:'船锚够不够稳——我需要安全港',value:3},
-    {label:'帆够不够大——我要去远方',value:1},
-    {label:'船上的人够不够好',value:2}
+  {id:'q9',dim:'T',text:'搬到一个完全陌生的城市，最让你难受的是？',options:[
+    {label:'身边没有认识的人',value:3},
+    {label:'不熟悉环境，做什么都不方便',value:1},
+    {label:'有点难受但也期待新的开始',value:2}
   ]},
-  {id:'q10',dim:'A',text:'"稳定"这个词给你的第一感觉？',options:[
-    {label:'温暖、安心',value:3},
-    {label:'无聊、被困住',value:1},
-    {label:'需要的，但不能只有这个',value:2}
+  {id:'q10',dim:'T',text:'你对"灵魂伴侣"这个概念？',options:[
+    {label:'我相信，并且一直在找/已经找到',value:3},
+    {label:'有最好，没有也能过好自己的生活',value:2},
+    {label:'不太需要，我自己就是完整的',value:1}
   ]},
-  {id:'q11',dim:'A',text:'面对重大选择时，你更依赖？',options:[
-    {label:'过往经验和已知信息',value:3},
-    {label:'直觉和冲动',value:1},
-    {label:'分析利弊后跟着感觉走',value:2}
+  // ===== A 锚（安全与稳定）=====
+  {id:'q11',dim:'A',text:'面对一个充满不确定性的大机会，你更可能？',options:[
+    {label:'详细评估风险，准备充分了再行动',value:3},
+    {label:'大方向合理就去试试',value:2},
+    {label:'直觉告诉我可以就冲了',value:1}
   ]},
-  {id:'q12',dim:'A',text:'你对"未来的不确定性"什么态度？',options:[
-    {label:'焦虑——希望尽量规划好一切',value:3},
-    {label:'兴奋——不确定才有趣啊',value:1},
-    {label:'接受——走一步看一步',value:2}
+  {id:'q12',dim:'A',text:'你理想中的生活是？',options:[
+    {label:'稳定可预期，不需要太多意外',value:3},
+    {label:'大体稳定，偶尔来点小变化',value:2},
+    {label:'不断变化，每段时间都不一样',value:1}
   ]},
-  {id:'q13',dim:'Q',text:'一本从未听过的冷门书 vs 一部大家都推荐的热门电影，你选？',options:[
-    {label:'冷门书，我就爱挖宝',value:3},
-    {label:'热门电影，大家说好肯定不差',value:1},
-    {label:'看当时心情',value:2}
+  {id:'q13',dim:'A',text:'银行卡余额和你的安全感？',options:[
+    {label:'直接挂钩，余额就是安全感',value:3},
+    {label:'有一定存款就安心了',value:2},
+    {label:'够花就行，体验比存款重要',value:1}
   ]},
-  {id:'q14',dim:'Q',text:'你更羡慕哪种人？',options:[
-    {label:'走遍世界的冒险家',value:3},
-    {label:'深耕一个领域的匠人',value:1},
-    {label:'两者兼顾的斜杠青年',value:2}
+  {id:'q14',dim:'A',text:'你的五年计划是？',options:[
+    {label:'有详细的阶段性目标',value:3},
+    {label:'有大方向，细节走着看',value:2},
+    {label:'没有五年计划这种东西',value:1}
   ]},
-  {id:'q15',dim:'Q',text:'"舒适区"对你来说是？',options:[
-    {label:'牢笼',value:3},
-    {label:'家',value:1},
-    {label:'充电站——偶尔回来充满电再出发',value:2}
+  {id:'q15',dim:'A',text:'生活中突然出现重大变化（比如工作变动），你的第一反应？',options:[
+    {label:'焦虑，需要时间重新规划一切',value:3},
+    {label:'有点慌，但很快开始适应',value:2},
+    {label:'兴奋，终于有新的可能性了',value:1}
   ]},
-  {id:'q16',dim:'Q',text:'如果能获得一种超能力？',options:[
-    {label:'瞬间移动到世界任何角落',value:3},
-    {label:'让时间暂停，好好休息一下',value:1},
-    {label:'读懂别人真实的想法',value:2}
+  // ===== Q 探索（好奇与成长）=====
+  {id:'q16',dim:'Q',text:'你在一个领域已经很熟练了，接下来你更想？',options:[
+    {label:'去尝试一个完全不同的新领域',value:3},
+    {label:'看机会，都有可能',value:2},
+    {label:'继续深入，成为真正的专家',value:1}
   ]},
-  {id:'q17',dim:'M',text:'你觉得自己了解真实的自己吗？',options:[
-    {label:'很了解，我花了很多时间思考这个问题',value:3},
-    {label:'不太了解，也没太在意',value:1},
-    {label:'在努力了解的路上',value:2}
+  {id:'q17',dim:'Q',text:'看到一个完全陌生的新概念/新事物，你的反应？',options:[
+    {label:'立刻想深入了解',value:3},
+    {label:'瞄一眼，有意思再继续看',value:2},
+    {label:'知道有这个东西就够了',value:1}
   ]},
-  {id:'q18',dim:'M',text:'做了一个让自己后悔的决定后，你通常？',options:[
-    {label:'反复复盘，一定要从中学到什么',value:3},
-    {label:'翻篇了，人生没有后悔药',value:1},
-    {label:'难受一阵子，然后接受',value:2}
+  {id:'q18',dim:'Q',text:'选旅行目的地时，你更倾向？',options:[
+    {label:'从没去过的陌生地方',value:3},
+    {label:'新旧地方穿插着来',value:2},
+    {label:'反复去自己喜欢的老地方',value:1}
   ]},
-  {id:'q19',dim:'M',text:'凌晨三点睡不着，你更可能在想？',options:[
-    {label:'我到底想要什么样的人生',value:3},
-    {label:'明天中午吃什么',value:1},
-    {label:'今天发生的某件事让我有点在意',value:2}
+  {id:'q19',dim:'Q',text:'"舒适区"这个词让你联想到？',options:[
+    {label:'需要打破的东西',value:3},
+    {label:'偶尔回来充电的地方',value:2},
+    {label:'我的家，待着挺好',value:1}
   ]},
-  {id:'q20',dim:'M',text:'"认识你自己"——古希腊德尔菲神庙上的铭文。你觉得？',options:[
-    {label:'这是一辈子的功课',value:3},
-    {label:'想那么多干嘛，活着就好',value:1},
-    {label:'有道理，偶尔想想',value:2}
+  {id:'q20',dim:'Q',text:'如果可以瞬间掌握一项新能力？',options:[
+    {label:'一门完全陌生的技能（飞行、潜水……）',value:3},
+    {label:'读懂别人真实的想法',value:2},
+    {label:'把现有的某项能力提升到顶级',value:1}
   ]},
-  {id:'q21',dim:'L',text:'如果你的存在能改变一件事？',options:[
-    {label:'让身边的人更幸福',value:3},
-    {label:'让自己过得更好',value:1},
-    {label:'在世界上留下一个作品/痕迹',value:2}
+  // ===== M 月镜（自我认知）=====
+  {id:'q21',dim:'M',text:'你多久会认真想一次"我到底想要什么"？',options:[
+    {label:'经常，这几乎是日常思考',value:3},
+    {label:'偶尔，遇到重要选择时会想',value:2},
+    {label:'很少，想太多不如直接做',value:1}
   ]},
-  {id:'q22',dim:'L',text:'看到一个陌生人在街上默默流泪，你的第一反应？',options:[
-    {label:'想走过去问问怎么了',value:3},
-    {label:'心里同情，但不会上前',value:2},
-    {label:'每个人都有自己的故事',value:1}
+  {id:'q22',dim:'M',text:'你觉得自己了解真实的自己吗？',options:[
+    {label:'很了解，包括自己不好的那些部分',value:3},
+    {label:'大致了解，有些地方还模糊',value:2},
+    {label:'没认真想过这个问题',value:1}
   ]},
-  {id:'q23',dim:'L',text:'你觉得人活着最重要的是？',options:[
-    {label:'被需要',value:3},
-    {label:'自由',value:1},
-    {label:'平衡',value:2}
+  {id:'q23',dim:'M',text:'做了一个后悔的决定后，你通常？',options:[
+    {label:'深入复盘为什么会这样决定',value:3},
+    {label:'难受一阵子，然后接受继续走',value:2},
+    {label:'翻篇，往前看比较重要',value:1}
   ]},
-  {id:'q24',dim:'L',text:'80岁的你回看一生，最希望看到什么？',options:[
-    {label:'温暖过很多人的心',value:3},
-    {label:'活出了最真实的自己',value:1},
-    {label:'留下了有价值的东西',value:2}
+  {id:'q24',dim:'M',text:'别人对你的评价和你的自我认知经常不一样，你会？',options:[
+    {label:'认真分析差距在哪、为什么不同',value:3},
+    {label:'参考一下，不太往心里去',value:2},
+    {label:'别人的看法是别人的事',value:1}
+  ]},
+  {id:'q25',dim:'M',text:'深夜睡不着时，你脑子里在想什么？',options:[
+    {label:'我这辈子到底在追求什么',value:3},
+    {label:'最近发生的某件具体的事',value:2},
+    {label:'没什么特别的，就是睡不着',value:1}
+  ]},
+  // ===== L 光（利他与连接）=====
+  {id:'q26',dim:'L',text:'哪种事情给你最持久的满足感？',options:[
+    {label:'真正帮到了一个需要帮助的人',value:3},
+    {label:'和朋友共度了一段开心时光',value:2},
+    {label:'完成了一件自己很满意的成果',value:1}
+  ]},
+  {id:'q27',dim:'L',text:'你在团队中通常扮演什么角色？',options:[
+    {label:'关心每个人状态和感受的那个',value:3},
+    {label:'看情况需要什么就补什么位',value:2},
+    {label:'专注做好自己负责的部分',value:1}
+  ]},
+  {id:'q28',dim:'L',text:'如果突然有了一大笔钱，你第一个想到的是？',options:[
+    {label:'能帮到谁、能做什么有意义的事',value:3},
+    {label:'和家人朋友一起改善生活',value:2},
+    {label:'先让自己的生活变得更好',value:1}
+  ]},
+  {id:'q29',dim:'L',text:'"让别人幸福是我最大的动力"，你的态度？',options:[
+    {label:'完全说出了我的心声',value:3},
+    {label:'部分同意，但自己也很重要',value:2},
+    {label:'应该先照顾好自己',value:1}
+  ]},
+  {id:'q30',dim:'L',text:'看到路边有陌生人明显需要帮助，你的第一反应？',options:[
+    {label:'马上过去问需不需要帮忙',value:3},
+    {label:'评估一下情况再决定',value:2},
+    {label:'心里同情，但不一定会行动',value:1}
   ]}
 ];
 
@@ -784,7 +820,7 @@ const TYPES = [
 
 // ===== ALGORITHM =====
 function sumToLevel(score){
-  if(score<=6)return'L';if(score<=9)return'M';return'H';
+  if(score<=8)return'L';if(score<=11)return'M';return'H';
 }
 function levelNum(l){return{L:1,M:2,H:3}[l]}
 function parsePattern(p){return p.replace(/-/g,'').split('')}
@@ -799,7 +835,7 @@ function computeResult(answers){
     const tv=parsePattern(t.pattern).map(levelNum);
     let dist=0,exact=0;
     for(let i=0;i<tv.length;i++){const df=Math.abs(uv[i]-tv[i]);dist+=df;if(df===0)exact++}
-    const sim=Math.max(0,Math.round((1-dist/18)*100)); // max dist=12 (6dims*2)
+    const sim=Math.max(0,Math.round((1-dist/12)*100)); // max dist=12 (6dims*2)
     return{...t,...TYPE_LIBRARY[t.code],dist,exact,sim};
   }).sort((a,b)=>a.dist-b.dist||b.exact-a.exact||b.sim-a.sim);
   const best=ranked[0];
